@@ -1,5 +1,7 @@
 # Globe Visualization Templates
 
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue.svg)](https://github.com/ngolosov/GlobeVis/)
+
 This repository contains templates for creating interactive 3D globe visualizations of various global datasets. The templates are designed for the GeoGraphics lab and come in two versions: CSV-based and JSON-based.
 
 ## Overview
@@ -136,3 +138,27 @@ The templates use:
 - All visualizations include auto-rotation (can be disabled)
 - Responsive design is included for proper sizing on different screens
 - Tooltips show country name, ISO code, and relevant data values 
+
+## Live Examples
+
+### CSV Version Templates
+
+| Template Name | Description | Live Demo |
+|--------------|-------------|-----------|
+| Access to Electricity | Visualizes percentage of population with access to electricity | [View Demo](https://golosov.pro/GlobeVis/csv_version/Access%20to%20Electricity.html) |
+| Gender Inequality Index | Shows gender inequality index by country | [View Demo](https://golosov.pro/GlobeVis/csv_version/Gender%20Inequality%20Index.html) |
+| Government Effectiveness Index | Displays government effectiveness metrics | [View Demo](https://golosov.pro/GlobeVis/csv_version/Government%20Effectiveness%20Index.html) |
+| Poverty Headcount Ratio | Shows poverty rates across countries | [View Demo](https://golosov.pro/GlobeVis/csv_version/Poverty%20Headcount%20Ratio.html) |
+| Poverty Headcount Ratio with markers | Same as above with additional location markers | [View Demo](https://golosov.pro/GlobeVis/csv_version/Poverty%20Headcount%20Ratio%20with%20markers.html) |
+| Refugee Population by Country | Visualizes refugee population distribution | [View Demo](https://golosov.pro/GlobeVis/csv_version/Refugee%20Population%20by%20Country.html) |
+| City Markers | Displays major cities as markers on the globe | [View Demo](https://golosov.pro/GlobeVis/csv_version/City%20Markers.html) |
+
+### JavaScript Version Templates
+
+| Template Name | Description | Live Demo |
+|--------------|-------------|-----------|
+| Single Variable | Basic template using GeoJSON properties directly | [View Demo](https://golosov.pro/GlobeVis/js_version/_Single%20variable.html) |
+| Government Effectiveness Index | Displays government effectiveness metrics | [View Demo](https://golosov.pro/GlobeVis/js_version/Government%20Effectiveness%20Index.html) |
+| Poverty Headcount Ratio | Shows poverty rates across countries | [View Demo](https://golosov.pro/GlobeVis/js_version/Poverty%20Headcount%20Ratio.html) |
+| Poverty Headcount Ratio with markers | Same as above with additional location markers | [View Demo](https://golosov.pro/GlobeVis/js_version/Poverty%20Headcount%20Ratio%20with%20markers.html) |
+| Refugee Population by Country | Visualizes refugee population distribution | [View Demo](https://golosov.pro/GlobeVis/js_version/Refugee%20Population%20by%20Country.html) | 
