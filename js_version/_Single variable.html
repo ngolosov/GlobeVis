@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { 
+      margin: 0; 
+      padding: 0;
+      background: #1a1a1a;
+      font-family: 'Arial', sans-serif;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    #title-container {
+      background: #1a1a1a;
+      padding: 3px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 20px;
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+    
+    #legend-title {
+      font-size: 16px;
+      color: #ffffff;
+      font-weight: bold;
+    }
+    
+    #globe-container {
+      flex: 1;
+      position: relative;
+      background: #1a1a1a;
+      min-height: 0;
+      overflow: hidden;
+    }
+    
+    #globeViz {
+      width: 100%;
+      height: 100%;
+      background: #1a1a1a;
+    }
+    
+    #legend-container {
+      background: #1a1a1a;
+      padding: 5px 0 15px 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      height: 45px;
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+    
+    #legend {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      position: relative;
+    }
+    
+    .legend-box {
+      width: 53px;
+      height: 14px;
+      position: relative;
+    }
+    
+    .legend-label {
+      position: absolute;
+      top: 16px;
+      left: 0;
+      font-size: 12px;
+      color: #cccccc;
+      white-space: nowrap;
+    }
+  </style>
+  <script src="//cdn.jsdelivr.net/npm/globe.gl"></script>
+</head>
+<body>
+  <div id="title-container">
+    <div id="legend-title"></div>
+  </div>
+  <div id="globe-container">
+    <div id="globeViz"></div>
+  </div>
+  <div id="legend-container">
+    <div id="legend"></div>
+  </div>
+  <script type="module">
+    // Configuration object for coloring and legend
+    const coloringConfig = {
+      title: 'GDP per Capita (Thousands USD)',
+      getValueFunction: feat => (feat.properties.GDP_MD_EST * 1000000) / Math.max(1e5, feat.properties.POP_EST) / 1000,
+      classes: [
+        { min: 0, max: 10, color: '#90EE90', label: '0-10k' },
+        { min: 10, max: 20, color: '#66CDAA', label: '10-20k' },
+        { min: 20, max: 40, color: '#40E0D0', label: '20-40k' },
+        { min: 40, max: 60, color: '#20B2AA', label: '40-60k' },
+        { min: 60, max: 80, color: '#008B8B', label: '60-80k' },
+        { min: 80, max: Infinity, color: '#006666', label: '80k+' }
+      ]
+    };
+
+    // Function to get color based on value and configuration
+    function getColorForValue(value, config) {
+      // value is already in thousands of dollars from getValueFunction
+      for (const classItem of config.classes) {
+        if (value >= classItem.min && value < classItem.max) {
+          return classItem.color;
+        }
+      }
+      // Return last color if value exceeds all ranges
+      return config.classes[config.classes.length - 1].color;
+    }
+
+    // Function to build box-style legend dynamically
+    function buildLegend(config) {
+      const legendTitle = document.getElementById('legend-title');
+      const legend = document.getElementById('legend');
+      
+      // Set title
+      legendTitle.textContent = config.title;
+      
+      // Clear existing legend
+      legend.innerHTML = '';
+      
+      // Create legend boxes
+      config.classes.forEach((classItem, index) => {
+        const box = document.createElement('div');
+        box.className = 'legend-box';
+        box.style.backgroundColor = classItem.color;
+        
+        const label = document.createElement('div');
+        label.className = 'legend-label';
+        
+        // Format label text to match screenshot style
+        if (classItem.max === Infinity) {
+          label.textContent = `${classItem.min}k+`;
+        } else if (classItem.min === 0) {
+          label.textContent = '0';
+        } else {
+          label.textContent = `${classItem.min}k`;
+        }
+        
+        box.appendChild(label);
+        legend.appendChild(box);
+      });
+    }
+
+    // Build the legend on page load
+    buildLegend(coloringConfig);
+
+    fetch('../datasets/ne_110m_admin_0_countries.geojson').then(res => res.json()).then(countries => {
+      const world = new Globe(document.getElementById('globeViz'))
+        .lineHoverPrecision(0)
+        .polygonsData(countries.features.filter(d => d.properties.ISO_A2 !== 'AQ'))
+        .polygonAltitude(0.01)
+        .polygonCapColor(feat => getColorForValue(coloringConfig.getValueFunction(feat), coloringConfig))
+        .polygonSideColor(() => 'rgba(0, 100, 0, 0.15)')
+        .polygonStrokeColor(() => '#333333')
+        .polygonLabel(({ properties: d }) => `
+          <div style="background: rgba(0,0,0,0.8); padding: 8px; border-radius: 4px; color: white;">
+            <b>${d.ADMIN} (${d.ISO_A2})</b><br/>
+            GDP: <i>${d.GDP_MD_EST}M</i><br/>
+            Population: <i>${d.POP_EST?.toLocaleString() || 'N/A'}</i><br/>
+            GDP per Capita: <i>${(coloringConfig.getValueFunction({properties: d}) * 1000).toFixed(0)}</i>
+          </div>
+        `)
+        .onPolygonHover(hoverD => world
+          .polygonCapColor(d => d === hoverD ? '#40E0D0' : getColorForValue(coloringConfig.getValueFunction(d), coloringConfig))
+          .polygonStrokeColor(d => d === hoverD ? '#ffffff' : '#333333')
+        )
+        .polygonsTransitionDuration(300);
+
+      // Auto-rotate the globe
+      world.controls().autoRotate = true;
+      world.controls().autoRotateSpeed = 0.5;
+
+      // Handle window resize
+      function handleResize() {
+        world.width(document.getElementById('globeViz').clientWidth);
+        world.height(document.getElementById('globeViz').clientHeight);
+      }
+
+      // Listen for window resize events
+      window.addEventListener('resize', handleResize);
+      
+      // Initial resize to ensure proper sizing
+      setTimeout(handleResize, 100);
+    });
+  </script>
+</body>
+</html>

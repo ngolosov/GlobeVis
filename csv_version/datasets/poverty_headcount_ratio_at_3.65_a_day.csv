@@ -1,0 +1,185 @@
+country,alpha_3_code,value
+Algeria,DZA,4.0
+Egypt,EGY,17.6
+Morocco,MAR,9.8
+Sudan,SDN,49.7
+Tunisia,TUN,2.0
+Burundi,BDI,86.2
+Comoros,COM,39.5
+Djibouti,DJI,43.8
+Ethiopia,ETH,65.0
+Kenya,KEN,70.1
+Madagascar,MDG,92.4
+Malawi,MWI,89.1
+Mauritius,MUS,1.8
+Mozambique,MOZ,88.6
+Rwanda,RWA,78.0
+Seychelles,SYC,1.2
+South Sudan,SSD,86.5
+Uganda,UGA,71.8
+United Republic of Tanzania,TZA,74.3
+Zambia,ZMB,81.0
+Zimbabwe,ZWE,64.5
+Angola,AGO,52.9
+Cameroon,CMR,46.7
+Central African Republic,CAF,85.8
+Chad,TCD,62.8
+Congo,COG,59.1
+Democratic Republic of the Congo,COD,92.1
+Gabon,GAB,8.1
+Sao Tome and Principe,STP,45.0
+Botswana,BWA,38.0
+Eswatini,SWZ,58.0
+Lesotho,LSO,54.7
+Namibia,NAM,33.3
+South Africa,ZAF,40.0
+Benin,BEN,43.4
+Burkina Faso,BFA,60.7
+Cabo Verde,CPV,19.3
+Côte d’Ivoire,CIV,38.4
+Gambia,GMB,47.0
+Ghana,GHA,48.8
+Guinea,GIN,46.6
+Guinea-Bissau,GNB,60.2
+Liberia,LBR,60.6
+Mali,MLI,56.1
+Mauritania,MRT,25.8
+Niger,NER,83.1
+Nigeria,NGA,63.5
+Senegal,SEN,36.3
+Sierra Leone,SLE,64.3
+Togo,TGO,58.8
+Dominican Republic,DOM,4.0
+Grenada,GRD,1.3
+Haiti,HTI,58.0
+Jamaica,JAM,2.4
+Saint Lucia,LCA,11.7
+Trinidad and Tobago,TTO,9.4
+Belize,BLZ,39.1
+Costa Rica,CRI,3.3
+El Salvador,SLV,8.6
+Guatemala,GTM,25.9
+Honduras,HND,26.4
+Mexico,MEX,4.7
+Nicaragua,NIC,14.4
+Panama,PAN,4.4
+Argentina,ARG,2.5
+Bolivia (Plurinational State of),BOL,5.4
+Brazil,BRA,8.4
+Chile,CHL,0.9
+Colombia,COL,14.0
+Ecuador,ECU,9.5
+Guyana,GUY,24.9
+Paraguay,PRY,5.6
+Peru,PER,9.5
+Suriname,SUR,4.2
+Uruguay,URY,0.8
+Venezuela (Bolivarian Republic of),VEN,15.5
+Canada,CAN,0.5
+United States of America,USA,0.5
+Kazakhstan,KAZ,0.3
+Kyrgyzstan,KGZ,12.5
+Tajikistan,TJK,25.7
+Turkmenistan,TKM,71.1
+Uzbekistan,UZB,5.0
+China,CHN,2.0
+Japan,JPN,0.9
+Mongolia,MNG,2.4
+Republic of Korea,KOR,0.5
+Indonesia,IDN,18.1
+Lao People's Democratic Republic,LAO,32.5
+Malaysia,MYS,0.1
+Myanmar,MMR,19.6
+Philippines,PHL,17.8
+Thailand,THA,0.6
+Timor-Leste,TLS,69.2
+Viet Nam,VNM,4.2
+Bangladesh,BGD,30.0
+Bhutan,BTN,0.5
+India,IND,44.1
+Iran (Islamic Republic of),IRN,3.8
+Maldives,MDV,0.0
+Nepal,NPL,40.0
+Pakistan,PAK,39.8
+Sri Lanka,LKA,11.3
+Armenia,ARM,10.0
+Azerbaijan,AZE,0.3
+Cyprus,CYP,0.1
+Georgia,GEO,19.1
+Iraq,IRQ,2.4
+Israel,ISR,1.0
+Jordan,JOR,0.4
+Lebanon,LBN,0.1
+State of Palestine,PSE,3.1
+Syrian Arab Republic,SYR,67.0
+Türkiye,TUR,1.4
+United Arab Emirates,ARE,0.0
+Yemen,YEM,54.4
+Belarus,BLR,0.1
+Bulgaria,BGR,2.0
+Czechia,CZE,0.1
+Hungary,HUN,0.8
+Poland,POL,0.2
+Republic of Moldova,MDA,0.3
+Romania,ROU,3.0
+Russian Federation,RUS,0.3
+Slovakia,SVK,0.7
+Ukraine,UKR,0.2
+Denmark,DNK,0.2
+Estonia,EST,0.4
+Finland,FIN,0.0
+Iceland,ISL,0.0
+Ireland,IRL,0.1
+Latvia,LVA,0.7
+Lithuania,LTU,0.4
+Norway,NOR,0.3
+Sweden,SWE,0.8
+United Kingdom of Great Britain and Northern Ireland,GBR,0.5
+Albania,ALB,1.5
+Bosnia and Herzegovina,BIH,0.8
+Croatia,HRV,0.4
+Greece,GRC,1.1
+Italy,ITA,1.0
+Malta,MLT,0.7
+Montenegro,MNE,3.7
+North Macedonia,MKD,7.5
+Portugal,PRT,0.4
+Serbia,SRB,2.5
+Slovenia,SVN,0.0
+Spain,ESP,0.9
+Austria,AUT,0.5
+Belgium,BEL,0.1
+France,FRA,0.2
+Germany,DEU,0.2
+Luxembourg,LUX,0.1
+Netherlands,NLD,0.1
+Switzerland,CHE,0.1
+Australia,AUS,0.7
+Fiji,FJI,12.4
+Papua New Guinea,PNG,67.7
+Solomon Islands,SLB,61.0
+Vanuatu,VUT,34.9
+Kiribati,KIR,19.5
+Marshall Islands,MHL,6.1
+Micronesia (Federated States of),FSM,40.8
+Nauru,NRU,20.9
+Samoa,WSM,10.5
+Tonga,TON,1.6
+Tuvalu,TUV,19.6
+Kosovo (as per UNSCR 1244),XKX,4.2
+Asia & Pacific,UNDP_AP,24.1
+East Asia & Pacific (excluding high income),EAS,6.3
+Europe & Central Asia (currently Europe & Central Asia (excluding high income)),UNDP_ECA,3.29
+Europe & Central Asia,ECS,1.7
+Fragile and conflict affected situations,FCS,55.5
+High-income countries,HIC,0.5
+IDA Total,IDA,53.8
+Latin America and the Caribbean,LAC,8.9
+Latin America and the Caribbean,UNDP_LAC,7.4
+Low-income countries,LIC,72.1
+Lower-middle-income countries,LMIC,36.9
+Low & middle income,LMY,26.8
+Middle East & North Africa,MEA,15.1
+Sub-Saharan Africa,SSA,63.9
+Upper-middle-income countries,UMC,5.3
+World,WLD,22.7

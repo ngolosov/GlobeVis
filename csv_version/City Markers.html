@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { 
+      margin: 0; 
+      padding: 0;
+      background: #1a1a1a;
+      font-family: 'Arial', sans-serif;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    #title-container {
+      background: #1a1a1a;
+      padding: 3px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 20px;
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+    
+    #legend-title {
+      font-size: 16px;
+      color: #ffffff;
+      font-weight: bold;
+    }
+    
+    #globe-container {
+      flex: 1;
+      position: relative;
+      background: #1a1a1a;
+      min-height: 0;
+      overflow: hidden;
+    }
+    
+    #globeViz {
+      width: 100%;
+      height: 100%;
+      background: #1a1a1a;
+    }
+
+    .tooltip {
+      position: fixed;
+      z-index: 1000;
+      pointer-events: none;
+      background: rgba(0,0,0,0.9);
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #444;
+      font-size: 12px;
+      color: #fff;
+      display: none;
+    }
+  </style>
+  <script src="//cdn.jsdelivr.net/npm/globe.gl"></script>
+</head>
+<body>
+  <div id="title-container">
+    <div id="legend-title">Major Cities</div>
+  </div>
+  <div id="globe-container">
+    <div id="globeViz"></div>
+  </div>
+  <script type="module">
+    // Global variables
+    let markers = [];
+
+    // Tooltip setup
+    const tip = document.createElement('div');
+    tip.className = 'tooltip';
+    document.body.appendChild(tip);
+
+    function setTip(html) {
+      tip.innerHTML = html;
+      tip.style.display = 'block';
+    }
+
+    function hideTip() {
+      tip.style.display = 'none';
+    }
+
+    function moveTip(x, y) {
+      tip.style.left = (x + 10) + 'px';
+      tip.style.top = (y - 10) + 'px';
+    }
+
+    // Track mouse position
+    let mouseX = 0, mouseY = 0;
+    window.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (tip.style.display === 'block') moveTip(mouseX, mouseY);
+    });
+
+    // Fetch data and render the globe
+    Promise.all([
+      fetch('datasets/ne_110m_admin_0_countries.geojson').then(res => res.json()),
+      fetch('datasets/markers.csv').then(res => res.text()).then(csv => {
+        // Parse CSV with quotes handling
+        const lines = csv.split('\n');
+        const headers = lines[0].split(',').map(h => h.trim().replace(/^"(.+)"$/, '$1'));
+        const latIndex = headers.indexOf('lat');
+        const lngIndex = headers.indexOf('lng');
+        const sizeIndex = headers.indexOf('size');
+        const colorIndex = headers.indexOf('color');
+        const captionIndex = headers.indexOf('caption');
+        const descriptionIndex = headers.indexOf('description');
+        
+        // Create markers array from CSV data
+        const markersData = [];
+        
+        lines.slice(1).forEach(line => {
+          if (!line.trim()) return;
+          
+          // Handle quoted values in CSV
+          const values = [];
+          let inQuotes = false;
+          let currentValue = '';
+          
+          for (let i = 0; i < line.length; i++) {
+            const char = line[i];
+            if (char === '"') {
+              inQuotes = !inQuotes;
+            } else if (char === ',' && !inQuotes) {
+              values.push(currentValue.trim().replace(/^"(.+)"$/, '$1'));
+              currentValue = '';
+            } else {
+              currentValue += char;
+            }
+          }
+          values.push(currentValue.trim().replace(/^"(.+)"$/, '$1'));
+          
+          const marker = {
+            lat: parseFloat(values[latIndex]),
+            lng: parseFloat(values[lngIndex]),
+            size: parseFloat(values[sizeIndex]),
+            color: values[colorIndex],
+            caption: values[captionIndex],
+            description: values[descriptionIndex]
+          };
+          
+          if (!isNaN(marker.lat) && !isNaN(marker.lng) && !isNaN(marker.size)) {
+            markersData.push(marker);
+          }
+        });
+        
+        return markersData;
+      })
+    ]).then(([countries, markersData]) => {
+      // Get markers
+      markers = markersData;
+
+      // Create globe
+      const globe = new Globe(document.getElementById('globeViz'))
+        // Countries
+        .polygonsData(countries.features.filter(f => f.properties.ISO_A2 !== 'AQ'))
+        .polygonAltitude(0.01)
+        .polygonCapColor(() => 'rgba(100, 100, 100, 0.2)') // Light gray fill
+        .polygonSideColor(() => 'rgba(100, 100, 100, 0.15)') // Light gray sides
+        .polygonStrokeColor(() => '#666') // Gray outlines
+        .polygonLabel(() => null)
+        .polygonsTransitionDuration(300)
+
+        // Markers
+        .htmlElementsData(markers)
+        .htmlElement(d => {
+          const el = document.createElement('div');
+          el.style.cssText = `width:${d.size}px;height:${d.size}px;color:${d.color};
+                             cursor:pointer;pointer-events:auto;transform:translate(-50%,-100%)`;
+          el.innerHTML = `<svg viewBox="-4 0 36 36">
+            <path fill="currentColor"
+              d="M14,0 C21.732,0 28,5.641 28,12.6 C28,23.963 14,36 14,36 C14,36 0,24.064 0,12.6 C0,5.641 6.268,0 14,0 Z"/>
+            <circle fill="black" cx="14" cy="14" r="7"/></svg>`;
+
+          el.addEventListener('mouseenter', e => {
+            setTip(`<b>${d.caption}</b><br>${d.description}<br>
+                    <span style="font-size:11px;color:#ccc">
+                    Lat ${d.lat.toFixed(4)}, Lng ${d.lng.toFixed(4)}</span>`);
+            moveTip(e.clientX, e.clientY);
+          });
+
+          el.addEventListener('mousemove', e => moveTip(e.clientX, e.clientY));
+
+          el.addEventListener('mouseleave', () => {
+            hideTip();
+          });
+          return el;
+        });
+
+      // Auto-rotate & resize
+      globe.controls().autoRotate = true;
+      globe.controls().autoRotateSpeed = 0.5;
+
+      function handleResize() {
+        globe.width(document.getElementById('globeViz').clientWidth);
+        globe.height(document.getElementById('globeViz').clientHeight);
+      }
+
+      window.addEventListener('resize', handleResize);
+      setTimeout(handleResize, 100);
+    }).catch(error => {
+      console.error('Error loading data:', error);
+    });
+  </script>
+</body>
+</html> 

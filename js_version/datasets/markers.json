@@ -1,0 +1,84 @@
+{
+  "markers": [
+    {
+      "lat": 40.7128,
+      "lng": -74.006,
+      "size": 15,
+      "color": "rgb(255,0,0)",
+      "caption": "New York City",
+      "description": "Major financial centre & most-populous US city"
+    },
+    {
+      "lat": 51.5074,
+      "lng": -0.1278,
+      "size": 12,
+      "color": "rgb(0,255,0)",
+      "caption": "London",
+      "description": "Capital of the United Kingdom"
+    },
+    {
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "size": 18,
+      "color": "rgb(0,0,255)",
+      "caption": "Tokyo",
+      "description": "Capital of Japan"
+    },
+    {
+      "lat": -33.8688,
+      "lng": 151.2093,
+      "size": 10,
+      "color": "rgb(255,165,0)",
+      "caption": "Sydney",
+      "description": "Largest city in Australia"
+    },
+    {
+      "lat": 1.3521,
+      "lng": 103.8198,
+      "size": 14,
+      "color": "rgb(255,0,255)",
+      "caption": "Singapore",
+      "description": "City-state & trading hub"
+    },
+    {
+      "lat": 55.7558,
+      "lng": 37.6176,
+      "size": 16,
+      "color": "rgb(0,255,255)",
+      "caption": "Moscow",
+      "description": "Capital of Russia"
+    },
+    {
+      "lat": -22.9068,
+      "lng": -43.1729,
+      "size": 11,
+      "color": "rgb(255,255,0)",
+      "caption": "Rio de Janeiro",
+      "description": "Famous for beaches & carnival"
+    },
+    {
+      "lat": 30.0444,
+      "lng": 31.2357,
+      "size": 13,
+      "color": "rgb(128,0,128)",
+      "caption": "Cairo",
+      "description": "Largest city in the Arab world"
+    },
+    {
+      "lat": 19.4326,
+      "lng": -99.1332,
+      "size": 12,
+      "color": "rgb(255,192,203)",
+      "caption": "Mexico City",
+      "description": "Capital of Mexico"
+    },
+    {
+      "lat": 28.7041,
+      "lng": 77.1025,
+      "size": 17,
+      "color": "rgb(165,42,42)",
+      "caption": "New Delhi",
+      "description": "Capital of India"
+    }
+  ]
+} 

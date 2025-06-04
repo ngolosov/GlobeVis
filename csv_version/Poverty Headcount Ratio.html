@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { 
+      margin: 0; 
+      padding: 0;
+      background: #1a1a1a;
+      font-family: 'Arial', sans-serif;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    #title-container {
+      background: #1a1a1a;
+      padding: 3px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 20px;
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+    
+    #legend-title {
+      font-size: 16px;
+      color: #ffffff;
+      font-weight: bold;
+    }
+    
+    #globe-container {
+      flex: 1;
+      position: relative;
+      background: #1a1a1a;
+      min-height: 0;
+      overflow: hidden;
+    }
+    
+    #globeViz {
+      width: 100%;
+      height: 100%;
+      background: #1a1a1a;
+    }
+    
+    #legend-container {
+      background: #1a1a1a;
+      padding: 5px 0 15px 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      height: 45px;
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+    
+    #legend {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      position: relative;
+    }
+    
+    .legend-box {
+      width: 53px;
+      height: 14px;
+      position: relative;
+    }
+    
+    .legend-label {
+      position: absolute;
+      top: 16px;
+      right: -1.5px;
+      transform: translateX(50%);
+      font-size: 12px;
+      color: #cccccc;
+      white-space: nowrap;
+    }
+
+    .tooltip {
+      position: fixed;
+      z-index: 1000;
+      pointer-events: none;
+      background: rgba(0,0,0,0.9);
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #444;
+      font-size: 12px;
+      color: #fff;
+      display: none;
+    }
+  </style>
+  <script src="//cdn.jsdelivr.net/npm/globe.gl"></script>
+</head>
+<body>
+  <div id="title-container">
+    <div id="legend-title"></div>
+  </div>
+  <div id="globe-container">
+    <div id="globeViz"></div>
+  </div>
+  <div id="legend-container">
+    <div id="legend"></div>
+  </div>
+  <script type="module">
+    // Global variable to store data
+    let lookupTable = {};
+
+    // Configuration object for coloring and legend
+    const coloringConfig = {
+      title: 'Poverty headcount ratio at $3.65 a day (2017 PPP), % of population',
+      getValueFunction: feat => lookupTable[feat.properties.SOV_A3] || 0,
+      classes: [
+        { min: 0, max: 10, color: '#FFF8DC', label: '10' },
+        { min: 10, max: 20, color: '#E6F3D6', label: '20' },
+        { min: 20, max: 30, color: '#CDEEC0', label: '30' },
+        { min: 30, max: 40, color: '#9FE2BF', label: '40' },
+        { min: 40, max: 50, color: '#7FCDCD', label: '50' },
+        { min: 50, max: 60, color: '#66B2FF', label: '60' },
+        { min: 60, max: 70, color: '#5B9BD5', label: '70' },
+        { min: 70, max: 80, color: '#4682B4', label: '80' },
+        { min: 80, max: 90, color: '#2E5090', label: '90' },
+        { min: 90, max: Infinity, color: '#1C3A70', label: '' }
+      ]
+    };
+
+    // Function to get color based on value and configuration
+    function getColorForValue(value, config) {
+      for (const classItem of config.classes) {
+        if (value >= classItem.min && value < classItem.max) {
+          return classItem.color;
+        }
+      }
+      // Return last color if value exceeds all ranges
+      return config.classes[config.classes.length - 1].color;
+    }
+
+    // Function to build box-style legend dynamically
+    function buildLegend(config) {
+      const legendTitle = document.getElementById('legend-title');
+      const legend = document.getElementById('legend');
+      
+      // Set title
+      legendTitle.textContent = config.title;
+      
+      // Clear existing legend
+      legend.innerHTML = '';
+      
+      // Create legend boxes
+      config.classes.forEach((classItem, index) => {
+        const box = document.createElement('div');
+        box.className = 'legend-box';
+        box.style.backgroundColor = classItem.color;
+        
+        const label = document.createElement('div');
+        label.className = 'legend-label';
+        label.textContent = classItem.label;
+        
+        box.appendChild(label);
+        legend.appendChild(box);
+      });
+    }
+
+    // Function to process data and get most recent values
+    function processEmissionsData(data) {
+      const lookup = {};
+      
+      data.countryData.forEach(country => {
+        const countryCode = country['Alpha-3 code'];
+        const dataPoints = country.data;
+        
+        if (dataPoints && dataPoints.length > 0) {
+          // Find the most recent year's data
+          const mostRecent = dataPoints.reduce((latest, current) => {
+            return current.year > latest.year ? current : latest;
+          });
+          
+          lookup[countryCode] = mostRecent.value;
+        }
+      });
+      
+      return lookup;
+    }
+
+    // Build the legend on page load
+    buildLegend(coloringConfig);
+
+    // Tooltip setup
+    const tip = document.createElement('div');
+    tip.className = 'tooltip';
+    document.body.appendChild(tip);
+
+    function setTip(html) {
+      tip.innerHTML = html;
+      tip.style.display = 'block';
+    }
+
+    function hideTip() {
+      tip.style.display = 'none';
+    }
+
+    function moveTip(x, y) {
+      tip.style.left = (x + 10) + 'px';
+      tip.style.top = (y - 10) + 'px';
+    }
+
+    // Track mouse position
+    let mouseX = 0, mouseY = 0;
+    window.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (tip.style.display === 'block') moveTip(mouseX, mouseY);
+    });
+
+    // Fetch both datasets and render the globe
+    Promise.all([
+      fetch('datasets/ne_110m_admin_0_countries.geojson').then(res => res.json()),
+      fetch('datasets/poverty_headcount_ratio_at_3.65_a_day.csv').then(res => res.text()).then(csv => {
+        // Parse CSV
+        const lines = csv.split('\n');
+        const headers = lines[0].split(',');
+        const valueIndex = headers.indexOf('value');
+        const codeIndex = headers.indexOf('alpha_3_code');
+        
+        // Create lookup table from CSV data
+        const countryData = {};
+        lines.slice(1).forEach(line => {
+          if (!line.trim()) return;
+          const values = line.split(',');
+          const code = values[codeIndex];
+          const value = parseFloat(values[valueIndex]);
+          if (!isNaN(value)) {
+            countryData[code] = value;
+          }
+        });
+        
+        return countryData;
+      })
+    ]).then(([countries, povertyData]) => {
+      // Use the data directly as our lookup table
+      lookupTable = povertyData;
+      
+      const world = new Globe(document.getElementById('globeViz'))
+        .lineHoverPrecision(0)
+        .polygonsData(countries.features.filter(d => d.properties.ISO_A2 !== 'AQ'))
+        .polygonAltitude(0.01)
+        .polygonCapColor(feat => getColorForValue(coloringConfig.getValueFunction(feat), coloringConfig))
+        .polygonSideColor(() => 'rgba(0, 100, 0, 0.15)')
+        .polygonStrokeColor(() => '#333333')
+        .polygonLabel(() => null)
+        .onPolygonHover(hoverD => {
+          world.polygonCapColor(d => d === hoverD ? '#40E0D0' : getColorForValue(coloringConfig.getValueFunction(d), coloringConfig))
+               .polygonStrokeColor(d => d === hoverD ? '#ffffff' : '#333333');
+
+          if (hoverD) {
+            const p = hoverD.properties;
+            const v = lookupTable[p.SOV_A3];
+            setTip(`<b>${p.ADMIN} (${p.ISO_A2})</b><br>
+                    Poverty headcount: <i>${v ? v.toFixed(1) + '%' : 'N/A'}</i><br>
+                    Population: <i>${p.POP_EST?.toLocaleString() || 'N/A'}</i>`);
+            moveTip(mouseX, mouseY);
+          } else {
+            hideTip();
+          }
+        })
+        .polygonsTransitionDuration(300);
+
+      // Auto-rotate the globe
+      world.controls().autoRotate = true;
+      world.controls().autoRotateSpeed = 0.5;
+
+      // Handle window resize
+      function handleResize() {
+        world.width(document.getElementById('globeViz').clientWidth);
+        world.height(document.getElementById('globeViz').clientHeight);
+      }
+
+      // Listen for window resize events
+      window.addEventListener('resize', handleResize);
+      
+      // Initial resize to ensure proper sizing
+      setTimeout(handleResize, 100);
+    }).catch(error => {
+      console.error('Error loading data:', error);
+    });
+  </script>
+</body>
+</html>

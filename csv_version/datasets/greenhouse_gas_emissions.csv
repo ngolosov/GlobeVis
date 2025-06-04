@@ -1,0 +1,201 @@
+country,alpha_3_code,value
+Algeria,DZA,267.01
+Egypt,EGY,299.96
+Libya,LBY,75.37
+Morocco,MAR,86.1
+Sudan,SDN,128.14
+Tunisia,TUN,37.1
+Burundi,BDI,7.14
+Comoros,COM,0.68
+Djibouti,DJI,1.39
+Eritrea,ERI,6.69
+Ethiopia,ETH,199.27
+Kenya,KEN,72.62
+Madagascar,MDG,40.21
+Malawi,MWI,20.31
+Mauritius,MUS,6.41
+Mozambique,MOZ,103.81
+Rwanda,RWA,7.59
+Seychelles,SYC,0.77
+Somalia,SOM,43.62
+South Sudan,SSD,70.61
+Uganda,UGA,53.61
+United Republic of Tanzania,TZA,158.82
+Zambia,ZMB,91.19
+Zimbabwe,ZWE,113.2
+Angola,AGO,119.41
+Cameroon,CMR,128.4
+Central African Republic,CAF,55.52
+Chad,TCD,114.0
+Congo,COG,29.63
+Democratic Republic of the Congo,COD,688.06
+Equatorial Guinea,GNQ,13.38
+Gabon,GAB,21.16
+Sao Tome and Principe,STP,0.4
+Botswana,BWA,53.52
+Eswatini,SWZ,2.88
+Lesotho,LSO,4.01
+Namibia,NAM,24.12
+South Africa,ZAF,508.38
+Benin,BEN,26.96
+Burkina Faso,BFA,56.36
+Cabo Verde,CPV,0.73
+Côte d’Ivoire,CIV,52.47
+Gambia,GMB,2.98
+Ghana,GHA,14.41
+Guinea,GIN,41.79
+Guinea-Bissau,GNB,4.26
+Liberia,LBR,15.62
+Mali,MLI,43.49
+Mauritania,MRT,12.97
+Niger,NER,46.04
+Nigeria,NGA,369.38
+Senegal,SEN,34.71
+Sierra Leone,SLE,9.31
+Togo,TGO,9.24
+Antigua and Barbuda,ATG,1.2
+Bahamas,BHS,2.83
+Barbados,BRB,3.65
+Cuba,CUB,35.62
+Dominica,DMA,0.22
+Dominican Republic,DOM,35.5
+Grenada,GRD,2.4
+Haiti,HTI,10.9
+Jamaica,JAM,7.58
+Saint Kitts and Nevis,KNA,0.33
+Saint Lucia,LCA,0.7
+Saint Vincent and the Grenadines,VCT,0.3
+Trinidad and Tobago,TTO,26.61
+Belize,BLZ,6.96
+Costa Rica,CRI,7.08
+El Salvador,SLV,12.15
+Guatemala,GTM,36.78
+Honduras,HND,27.67
+Mexico,MEX,609.07
+Nicaragua,NIC,38.15
+Panama,PAN,21.46
+Argentina,ARG,394.76
+Bolivia (Plurinational State of),BOL,131.43
+Brazil,BRA,1469.64
+Chile,CHL,49.69
+Colombia,COL,270.31
+Ecuador,ECU,94.19
+Guyana,GUY,18.17
+Paraguay,PRY,97.29
+Peru,PER,179.78
+Suriname,SUR,13.54
+Uruguay,URY,34.28
+Venezuela (Bolivarian Republic of),VEN,237.63
+Canada,CAN,731.54
+United States of America,USA,5289.13
+Kazakhstan,KAZ,291.82
+Kyrgyzstan,KGZ,12.83
+Tajikistan,TJK,17.56
+Turkmenistan,TKM,194.09
+Uzbekistan,UZB,184.15
+China,CHN,12295.62
+Democratic People's Republic of Korea,PRK,79.44
+Japan,JPN,1062.78
+Mongolia,MNG,76.38
+Republic of Korea,KOR,613.54
+Brunei Darussalam,BRN,12.23
+Cambodia,KHM,74.85
+Indonesia,IDN,1475.83
+Lao People's Democratic Republic,LAO,43.36
+Malaysia,MYS,367.76
+Myanmar,MMR,246.64
+Philippines,PHL,227.52
+Singapore,SGP,64.3
+Thailand,THA,451.42
+Timor-Leste,TLS,6.01
+Viet Nam,VNM,458.14
+Afghanistan,AFG,31.27
+Bangladesh,BGD,224.35
+Bhutan,BTN,0.32
+India,IND,3166.95
+Iran (Islamic Republic of),IRN,844.71
+Maldives,MDV,1.99
+Nepal,NPL,48.48
+Pakistan,PAK,443.6
+Sri Lanka,LKA,36.9
+Armenia,ARM,10.46
+Azerbaijan,AZE,53.45
+Bahrain,BHR,54.15
+Cyprus,CYP,7.86
+Georgia,GEO,17.69
+Iraq,IRQ,261.79
+Israel,ISR,83.75
+Jordan,JOR,33.15
+Kuwait,KWT,135.89
+Lebanon,LBN,28.87
+Oman,OMN,95.1
+Qatar,QAT,119.61
+Saudi Arabia,SAU,712.59
+Syrian Arab Republic,SYR,47.12
+Türkiye,TUR,476.34
+United Arab Emirates,ARE,249.93
+Yemen,YEM,24.39
+Belarus,BLR,86.3
+Bulgaria,BGR,12.61
+Czechia,CZE,102.64
+Hungary,HUN,61.39
+Poland,POL,320.92
+Republic of Moldova,MDA,13.17
+Romania,ROU,72.84
+Russian Federation,RUS,1799.98
+Slovakia,SVK,34.95
+Ukraine,UKR,224.44
+Denmark,DNK,43.19
+Estonia,EST,14.83
+Finland,FIN,61.7
+Iceland,ISL,3.27
+Ireland,IRL,66.46
+Latvia,LVA,11.53
+Lithuania,LTU,24.13
+Norway,NOR,31.33
+Sweden,SWE,34.14
+United Kingdom of Great Britain and Northern Ireland,GBR,411.12
+Albania,ALB,8.06
+Andorra,AND,0.58
+Bosnia and Herzegovina,BIH,24.39
+Croatia,HRV,17.05
+Greece,GRC,70.56
+Italy,ITA,339.21
+Malta,MLT,2.08
+Montenegro,MNE,3.79
+North Macedonia,MKD,9.77
+Portugal,PRT,56.01
+Serbia,SRB,62.81
+Slovenia,SVN,15.65
+Spain,ESP,256.41
+Austria,AUT,64.09
+Belgium,BEL,100.27
+France,FRA,314.57
+Germany,DEU,681.18
+Liechtenstein,LIE,0.16
+Luxembourg,LUX,8.54
+Netherlands,NLD,162.55
+Switzerland,CHE,42.25
+Australia,AUS,585.42
+New Zealand,NZL,70.86
+Fiji,FJI,-0.81
+Papua New Guinea,PNG,51.65
+Solomon Islands,SLB,46.25
+Vanuatu,VUT,0.59
+Kiribati,KIR,0.09
+Marshall Islands,MHL,0.16
+Micronesia (Federated States of),FSM,0.16
+Nauru,NRU,0.05
+Palau,PLW,0.2
+Cook Islands,COK,0.07
+Niue,NIU,0.0
+Samoa,WSM,0.65
+Tonga,TON,0.27
+Tuvalu,TUV,0.02
+Asia & Pacific,UNDP_AP,20777.35
+Arab States,UNDP_AS,2701.26
+Europe & Central Asia (currently Europe & Central Asia (excluding high income)),UNDP_ECA,1691.12
+European Union,EUU,2957.36
+Latin America and the Caribbean,UNDP_LAC,3877.88
+Sub-Saharan Africa,UNDP_SSA,3456.5
+World,WLD,47513.15
