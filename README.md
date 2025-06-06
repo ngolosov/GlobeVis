@@ -162,3 +162,16 @@ The templates use:
 | Poverty Headcount Ratio | Shows poverty rates across countries | [View Demo](https://golosov.pro/GlobeVis/js_version/Poverty%20Headcount%20Ratio.html) |
 | Poverty Headcount Ratio with markers | Same as above with additional location markers | [View Demo](https://golosov.pro/GlobeVis/js_version/Poverty%20Headcount%20Ratio%20with%20markers.html) |
 | Refugee Population by Country | Visualizes refugee population distribution | [View Demo](https://golosov.pro/GlobeVis/js_version/Refugee%20Population%20by%20Country.html) | 
+
+## How to embed this in the WordPress page
+Navigate to the Pages in the admin console. Edit/create a page. Switch to the "text" mode in the editor. Copy-paste this code to the editor. Replace the `src` tag with the visualization file URL.
+```html
+<iframe 
+  src="https://golosov.pro/GlobeVis/csv_version/Access%20to%20Electricity.html" 
+  width="100%" 
+  height="600px" 
+  frameborder="0"
+  style="border: none; border-radius: 8px;">
+</iframe>
+}
+```
