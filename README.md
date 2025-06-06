@@ -175,3 +175,5 @@ Navigate to the Pages in the admin console. Edit/create a page. Switch to the "t
 </iframe>
 }
 ```
+Here's an  example on how it looks in the Wordpress page:
+[View](https://sites.psu.edu/golosov/globevis/)
